@@ -6,12 +6,21 @@ import android.graphics.RectF;
 import android.util.Log;
 import com.jason.Demo;
 import com.jason.R;
+import ice.animation.Interpolator.LinearInterpolator;
+import ice.animation.RotateAnimation;
+import ice.animation.TranslateAnimation;
 import ice.engine.App;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
 import ice.graphic.Primitives;
+import ice.graphic.Texture;
 import ice.node.Drawable;
 import ice.node.mesh.Grid;
+import ice.node.mesh.Mesh;
+import ice.node.mesh.vertex.ObjLoader;
+import ice.node.mesh.vertex.VertexArray;
+import ice.node.mesh.vertex.VertexBufferObject;
+import ice.node.mesh.vertex.VertexData;
 import ice.node.widget.TextureTile;
 import ice.res.Res;
 import junit.framework.Test;
@@ -30,16 +39,25 @@ public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
 
     public MainScene() {
-        Bitmap bitmap = Res.getBitmap(R.drawable.poker_back_small);
-
-        Drawable background = new TextureTile(bitmap);
-
         App app = EngineContext.getInstance().getApp();
+
+        Drawable primitiveTest = primitiveTest(app);
+
+        Grid grid = new Grid(200, 200);
+        grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, 0.001f - app.getZFar());
+        grid.setCallFace(false);
+
+        Drawable objMesh = objMeshTest();
+
+        addChildren(objMesh);
+    }
+
+    private Drawable primitiveTest(App app) {
 
         final int width = app.getWidth();
         final int height = app.getHeight();
 
-        Drawable primitiveTest = new Drawable() {
+        Drawable drawable = new Drawable(0, 0, 0.01f - app.getZFar()) {
 
             @Override
             protected void onDraw(GL11 gl) {
@@ -50,23 +68,35 @@ public class MainScene extends Scene {
                 Primitives.drawCircle(gl, width >> 1, height >> 1, 100, 0, 50, true);
 
                 gl.glPointSize(10);
-                Primitives.drawPoint(gl, 100, 100);
+                Primitives.drawPoint(gl, width >> 1, height >> 1);
                 gl.glPointSize(1);
             }
         };
 
-        Grid grid = new Grid(50, 50);
-        grid.setPos(400, 100, 0);
-        grid.setCallFace(false);
-
-        addChildren(background, primitiveTest, grid);
+        return drawable;
     }
 
-    @Override
-    protected void onDraw(GL11 gl) {
+    private Drawable objMeshTest() {
+        ObjLoader objLoader = new ObjLoader();
+        objLoader.loadObj(Res.openAssets("test.obj"));
 
-        gl.glDisable(GL_DEPTH_TEST);
+        VertexData vertexData = new VertexArray(objLoader.getVertexNum(), objLoader.getAttributes());
+        vertexData.setVertices(objLoader.getVertexData());
 
-        super.onDraw(gl);
+        Mesh objMesh = new Mesh(vertexData);
+
+        objMesh.setPos(400, 400, -500);
+
+        //objMesh.bindTexture(new Texture(Res.getBitmap(R.drawable.mask1)));
+
+        RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
+        rotateAnimation.setRotateVector(1, 1, 1);
+        rotateAnimation.enableLoop(true);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+
+        // objMesh.startAnimation(rotateAnimation);
+        objMesh.setCallFace(false);
+
+        return objMesh;
     }
 }
