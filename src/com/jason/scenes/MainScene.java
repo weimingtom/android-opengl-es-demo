@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
+import android.view.MotionEvent;
 import com.jason.Demo;
 import com.jason.R;
 import ice.animation.Interpolator.LinearInterpolator;
@@ -49,7 +50,7 @@ public class MainScene extends Scene {
 
         Drawable objMesh = objMeshTest();
 
-        addChildren(objMesh);
+        addChildren(primitiveTest, objMesh);
     }
 
     private Drawable primitiveTest(App app) {
