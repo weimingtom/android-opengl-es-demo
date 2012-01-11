@@ -3,6 +3,7 @@ package com.jason.graphic;
 import android.content.Context;
 import android.opengl.GLU;
 import com.jason.Demo;
+import ice.engine.EngineContext;
 import ice.engine.GameView;
 import ice.engine.GlRenderer;
 import ice.graphic.projection.PerspectiveProjection;
@@ -51,7 +52,9 @@ public class DemoView extends GameView {
         float[] lightAmbient = {0.5f, 0.5f, 0.5f, 1.0f}; // ['æmbiənt] 环境光
         float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};  //[di'fju:s] 漫射光
         float[] specularParams = {0.4f, 0.4f, 0.4f, 1.0f}; //镜面光设置
-        float[] lightPosition = {-100.0f, 100.0f, -100f, 1.0f};
+
+        int height = EngineContext.getInstance().getApp().getHeight();
+        float[] lightPosition = {0, height >> 1, -100f, 1.0f};
 
 
         gl.glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmbient, 0);

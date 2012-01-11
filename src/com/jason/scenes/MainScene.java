@@ -18,6 +18,7 @@ import ice.node.mesh.vertex.ObjLoader;
 import ice.node.mesh.vertex.VertexArray;
 import ice.node.mesh.vertex.VertexBufferObject;
 import ice.node.mesh.vertex.VertexData;
+import ice.node.particle_system.TestParticleSystem;
 import ice.res.Res;
 
 import javax.microedition.khronos.opengles.GL11;
@@ -48,7 +49,11 @@ public class MainScene extends Scene {
 
         Drawable objMesh = objMeshTest();
 
-        addChildren(primitiveTest, grid, objMesh);
+        TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.particle)));
+        testParticleSystem.setPos(400, 400, -500);
+        testParticleSystem.init();
+
+        addChildren(primitiveTest, grid, objMesh, testParticleSystem);
     }
 
     @Override
@@ -102,12 +107,14 @@ public class MainScene extends Scene {
         ObjLoader objLoader = new ObjLoader();
         objLoader.loadObj(Res.openAssets("teaport.obj"));
 
-        VertexData vertexData = new VertexArray(objLoader.getVertexNum(), objLoader.getAttributes());
+        VertexData vertexData = new VertexBufferObject(objLoader.getVertexNum(), objLoader.getAttributes());
         vertexData.setVertices(objLoader.getVertexData());
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(250, 250, -500);
+        objMesh.setPos(400, 400, -400);
+
+        objMesh.setCallFace(false);
 
         objMesh.bindTexture(new Texture(Res.getBitmap(R.drawable.mask1)));
 
