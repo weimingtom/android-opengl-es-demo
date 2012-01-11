@@ -49,10 +49,22 @@ public class MainScene extends Scene {
 
         Drawable objMesh = objMeshTest();
 
+        TestParticleSystem testParticleSystem = particleTest();
+
+
+        addChildren(primitiveTest, grid, objMesh, testParticleSystem);
+    }
+
+    private TestParticleSystem particleTest() {
         TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.spark)));
         testParticleSystem.setPos(700, 400, -500);
 
-        addChildren(primitiveTest, grid, objMesh, testParticleSystem);
+        RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
+        rotateAnimation.setRotateVector(1, 1, 1);
+        rotateAnimation.setLoop(true);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        testParticleSystem.startAnimation(rotateAnimation);
+        return testParticleSystem;
     }
 
     @Override
