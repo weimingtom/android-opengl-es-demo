@@ -35,10 +35,10 @@ public class DemoView extends GameView {
 
             @Override
             protected void onInit(GL11 gl) {
-                gl.glEnable(GL_BLEND);
-                gl.glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+//                gl.glEnable(GL_BLEND);
+//                gl.glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_ALPHA);
 
-                setupLight(gl);
+                //setupLight(gl);
                 //setupMaterial(gl);
             }
 

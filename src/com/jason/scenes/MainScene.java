@@ -1,15 +1,11 @@
 package com.jason.scenes;
 
-import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 import android.view.MotionEvent;
-import com.jason.Demo;
 import com.jason.R;
 import ice.animation.Interpolator.LinearInterpolator;
 import ice.animation.RotateAnimation;
-import ice.animation.TranslateAnimation;
 import ice.engine.App;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
@@ -22,11 +18,13 @@ import ice.node.mesh.vertex.ObjLoader;
 import ice.node.mesh.vertex.VertexArray;
 import ice.node.mesh.vertex.VertexBufferObject;
 import ice.node.mesh.vertex.VertexData;
-import ice.node.widget.TextureTile;
 import ice.res.Res;
-import junit.framework.Test;
 
 import javax.microedition.khronos.opengles.GL11;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
 import static javax.microedition.khronos.opengles.GL11.*;
 
@@ -44,13 +42,35 @@ public class MainScene extends Scene {
 
         Drawable primitiveTest = primitiveTest(app);
 
-        Grid grid = new Grid(200, 200);
-        grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, 0.001f - app.getZFar());
+        Grid grid = new Grid(50, 50);
+        grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, -400);
         grid.setCallFace(false);
 
         Drawable objMesh = objMeshTest();
 
-        addChildren(primitiveTest, objMesh);
+        addChildren(primitiveTest, grid, objMesh);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+
+        float x = event.getX();
+        float y = event.getY();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            lastMotionY = y;
+            lastMotionX = x;
+        }
+        else if (action == MotionEvent.ACTION_MOVE) {
+            float deltaX = x - lastMotionX;
+            float deltaY = lastMotionY - y;
+
+            setPos(getPosX() + deltaX / 10, getPosY() + deltaY / 10, 0);
+        }
+
+
+        return true;
     }
 
     private Drawable primitiveTest(App app) {
@@ -58,18 +78,19 @@ public class MainScene extends Scene {
         final int width = app.getWidth();
         final int height = app.getHeight();
 
-        Drawable drawable = new Drawable(0, 0, 0.01f - app.getZFar()) {
+        Drawable drawable = new Drawable(0, 0, -300) {
 
             @Override
             protected void onDraw(GL11 gl) {
                 gl.glEnable(GL_POINT_SMOOTH);
 
-                Primitives.drawLine(gl, new PointF(100, 100), new PointF(400, 400));
-                Primitives.drawRect(gl, new RectF(400, 100, 500, 200));
-                Primitives.drawCircle(gl, width >> 1, height >> 1, 100, 0, 50, true);
+                RectF rect = new RectF(0, 0, width, height);
+                Primitives.drawRect(gl, rect);
+
+                Primitives.drawCircle(gl, 100, 100, 100, 0, 50, true);
 
                 gl.glPointSize(10);
-                Primitives.drawPoint(gl, width >> 1, height >> 1);
+                Primitives.drawPoint(gl, 0, 0);
                 gl.glPointSize(1);
             }
         };
@@ -79,25 +100,27 @@ public class MainScene extends Scene {
 
     private Drawable objMeshTest() {
         ObjLoader objLoader = new ObjLoader();
-        objLoader.loadObj(Res.openAssets("test.obj"));
+        objLoader.loadObj(Res.openAssets("teaport.obj"));
 
         VertexData vertexData = new VertexArray(objLoader.getVertexNum(), objLoader.getAttributes());
         vertexData.setVertices(objLoader.getVertexData());
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(400, 400, -500);
+        objMesh.setPos(250, 250, -500);
 
-        //objMesh.bindTexture(new Texture(Res.getBitmap(R.drawable.mask1)));
+        objMesh.bindTexture(new Texture(Res.getBitmap(R.drawable.mask1)));
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);
-        rotateAnimation.enableLoop(true);
+        rotateAnimation.setLoop(true);
         rotateAnimation.setInterpolator(new LinearInterpolator());
 
-        // objMesh.startAnimation(rotateAnimation);
+        objMesh.startAnimation(rotateAnimation);
         objMesh.setCallFace(false);
 
         return objMesh;
     }
+
+    private float lastMotionX, lastMotionY;
 }
