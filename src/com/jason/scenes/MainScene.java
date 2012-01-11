@@ -57,7 +57,7 @@ public class MainScene extends Scene {
 
     private TestParticleSystem particleTest() {
         TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.spark)));
-        testParticleSystem.setPos(700, 400, -500);
+        testParticleSystem.setPos(300, 400, -500);
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);
@@ -123,7 +123,7 @@ public class MainScene extends Scene {
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(400, 400, -400);
+        objMesh.setPos(600, 400, -550);
 
         objMesh.setCallFace(false);
 
