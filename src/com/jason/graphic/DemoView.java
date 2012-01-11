@@ -39,7 +39,7 @@ public class DemoView extends GameView {
 //                gl.glEnable(GL_BLEND);
 //                gl.glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_ALPHA);
 
-                //setupLight(gl);
+                setupLight(gl);
                 //setupMaterial(gl);
             }
 

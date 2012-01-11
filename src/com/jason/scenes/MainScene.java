@@ -49,9 +49,8 @@ public class MainScene extends Scene {
 
         Drawable objMesh = objMeshTest();
 
-        TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.particle)));
-        testParticleSystem.setPos(400, 400, -500);
-        testParticleSystem.init();
+        TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.spark)));
+        testParticleSystem.setPos(700, 400, -500);
 
         addChildren(primitiveTest, grid, objMesh, testParticleSystem);
     }
