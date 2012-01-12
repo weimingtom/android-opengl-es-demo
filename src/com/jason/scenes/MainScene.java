@@ -41,10 +41,8 @@ public class MainScene extends Scene {
     public MainScene() {
         App app = EngineContext.getInstance().getApp();
 
-        Drawable primitiveTest = primitiveTest(app);
-
         Grid grid = new Grid(50, 50);
-        grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, -400);
+        grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, 200);
         grid.setCallFace(false);
 
         Drawable objMesh = objMeshTest();
@@ -52,12 +50,12 @@ public class MainScene extends Scene {
         TestParticleSystem testParticleSystem = particleTest();
 
 
-        addChildren(primitiveTest, grid, objMesh, testParticleSystem);
+        addChildren(grid, objMesh, testParticleSystem);
     }
 
     private TestParticleSystem particleTest() {
         TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.spark)));
-        testParticleSystem.setPos(300, 400, -500);
+        testParticleSystem.setPos(300, 400, 150);
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);
@@ -89,31 +87,6 @@ public class MainScene extends Scene {
         return true;
     }
 
-    private Drawable primitiveTest(App app) {
-
-        final int width = app.getWidth();
-        final int height = app.getHeight();
-
-        Drawable drawable = new Drawable(0, 0, -300) {
-
-            @Override
-            protected void onDraw(GL11 gl) {
-                gl.glEnable(GL_POINT_SMOOTH);
-
-                RectF rect = new RectF(0, 0, width, height);
-                Primitives.drawRect(gl, rect);
-
-                Primitives.drawCircle(gl, 100, 100, 100, 0, 50, true);
-
-                gl.glPointSize(10);
-                Primitives.drawPoint(gl, 0, 0);
-                gl.glPointSize(1);
-            }
-        };
-
-        return drawable;
-    }
-
     private Drawable objMeshTest() {
         ObjLoader objLoader = new ObjLoader();
         objLoader.loadObj(Res.openAssets("teaport.obj"));
@@ -123,7 +96,7 @@ public class MainScene extends Scene {
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(600, 400, -550);
+        objMesh.setPos(600, 400, 100);
 
         objMesh.setCallFace(false);
 
