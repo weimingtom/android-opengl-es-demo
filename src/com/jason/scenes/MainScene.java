@@ -31,7 +31,7 @@ public class MainScene extends Scene {
         App app = EngineContext.getInstance().getApp();
 
         Grid grid = new Grid(50, 50);
-        grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, 200);
+        grid.setPos(0, 0, 200);
         grid.setCallFace(false);
         grid.setTexture(new Texture(R.drawable.star));
         grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
