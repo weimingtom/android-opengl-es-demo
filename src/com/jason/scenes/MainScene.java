@@ -12,9 +12,9 @@ import ice.graphic.Texture;
 import ice.node.Drawable;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
-import ice.node.mesh.vertex.ObjLoader;
-import ice.node.mesh.vertex.VertexBufferObject;
-import ice.node.mesh.vertex.VertexData;
+import ice.util.ObjLoader;
+import ice.model.vertex.VertexBufferObject;
+import ice.model.vertex.VertexData;
 import ice.node.particle_system.TestParticleSystem;
 import ice.res.Res;
 
