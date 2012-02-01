@@ -1,31 +1,22 @@
 package com.jason.scenes;
 
-import android.graphics.PointF;
-import android.graphics.RectF;
 import android.view.MotionEvent;
 import com.jason.R;
+import ice.animation.AlphaAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
 import ice.animation.RotateAnimation;
 import ice.engine.App;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
-import ice.graphic.Primitives;
 import ice.graphic.Texture;
 import ice.node.Drawable;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
 import ice.node.mesh.vertex.ObjLoader;
-import ice.node.mesh.vertex.VertexArray;
 import ice.node.mesh.vertex.VertexBufferObject;
 import ice.node.mesh.vertex.VertexData;
 import ice.node.particle_system.TestParticleSystem;
 import ice.res.Res;
-
-import javax.microedition.khronos.opengles.GL11;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 
 import static javax.microedition.khronos.opengles.GL11.*;
 
@@ -36,26 +27,35 @@ import static javax.microedition.khronos.opengles.GL11.*;
  */
 public class MainScene extends Scene {
 
-    private static final String TAG = MainScene.class.getSimpleName();
-
     public MainScene() {
         App app = EngineContext.getInstance().getApp();
 
         Grid grid = new Grid(50, 50);
         grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, 200);
         grid.setCallFace(false);
-        grid.setTexture(new Texture(Res.getBitmap(R.drawable.star)));
+        grid.setTexture(new Texture(R.drawable.star));
+        grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
 
         Drawable objMesh = objMeshTest();
 
         TestParticleSystem testParticleSystem = particleTest();
 
+        AlphaAnimation alphaAnimation = new AlphaAnimation(3000, 1, 0);
+        alphaAnimation.setLoop(true);
+        grid.startAnimation(alphaAnimation);
 
         addChildren(grid, objMesh, testParticleSystem);
     }
 
     private TestParticleSystem particleTest() {
-        TestParticleSystem testParticleSystem = new TestParticleSystem(50, new Texture(Res.getBitmap(R.drawable.spark)));
+
+        TestParticleSystem testParticleSystem = new TestParticleSystem(
+                50,
+                new Texture(R.drawable.spark)
+        );
+
+        testParticleSystem.enableBlend(GL_ONE, GL_ONE);
+
         testParticleSystem.setPos(300, 400, 150);
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
@@ -101,7 +101,7 @@ public class MainScene extends Scene {
 
         objMesh.setCallFace(false);
 
-        objMesh.bindTexture(new Texture(Res.getBitmap(R.drawable.mask1)));
+        objMesh.bindTexture(new Texture(R.drawable.mask1));
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);

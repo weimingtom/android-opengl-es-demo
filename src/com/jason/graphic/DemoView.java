@@ -42,15 +42,6 @@ public class DemoView extends GameView {
                 //setupMaterial(gl);
             }
 
-            @Override
-            protected void onFrame(GL11 gl) {
-                super.onFrame(gl);
-
-                gl.glEnable(GL_BLEND);
-                gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//                gl.glBlendFunc(GL_ONE, GL_ONE);
-            }
-
         };
 
     }
