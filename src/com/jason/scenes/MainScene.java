@@ -44,6 +44,7 @@ public class MainScene extends Scene {
         Grid grid = new Grid(50, 50);
         grid.setPos(app.getWidth() >> 1, app.getHeight() >> 1, 200);
         grid.setCallFace(false);
+        grid.setTexture(new Texture(Res.getBitmap(R.drawable.star)));
 
         Drawable objMesh = objMeshTest();
 

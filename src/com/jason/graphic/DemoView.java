@@ -34,13 +34,21 @@ public class DemoView extends GameView {
 
         return new GlRenderer(projection) {
 
+
             @Override
             protected void onInit(GL11 gl) {
-//                gl.glEnable(GL_BLEND);
-//                gl.glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_ALPHA);
 
                 setupLight(gl);
                 //setupMaterial(gl);
+            }
+
+            @Override
+            protected void onFrame(GL11 gl) {
+                super.onFrame(gl);
+
+//                gl.glEnable(GL_BLEND);
+//                // gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//                gl.glBlendFunc(GL_ONE, GL_ONE);
             }
 
         };
