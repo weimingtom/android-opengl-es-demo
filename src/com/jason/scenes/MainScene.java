@@ -5,6 +5,7 @@ import com.jason.R;
 import ice.animation.AlphaAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
 import ice.animation.RotateAnimation;
+import ice.animation.TranslateRotateAnimation;
 import ice.engine.App;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
@@ -51,10 +52,11 @@ public class MainScene extends Scene {
         TextureGrid textureGrid = new TextureGrid(R.drawable.mask2);
         textureGrid.setPos(appWidth / 2, appHeight / 2);
         textureGrid.setCallFace(false);
-        RotateAnimation rotate = new RotateAnimation(3000, 0, 360);
-        rotate.setRotateVector(0.5f, 0.5f, 1);
-        rotate.setLoop(true);
-        textureGrid.startAnimation(rotate);
+        TranslateRotateAnimation translateRotate = new TranslateRotateAnimation(3000, 0, 360);
+        translateRotate.setRotateVector(1, 1, 2);
+       // translateRotate.setTranslate(-textureGrid.getWidth() / 2, textureGrid.getHeight() / 2, 0);
+        translateRotate.setLoop(true);
+        textureGrid.startAnimation(translateRotate);
 
         addChildren(grid, objMesh, textureGrid, testParticleSystem);
     }
