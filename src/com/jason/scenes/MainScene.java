@@ -12,6 +12,7 @@ import ice.graphic.Texture;
 import ice.node.Drawable;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
+import ice.node.widget.TextureGrid;
 import ice.util.ObjLoader;
 import ice.model.vertex.VertexBufferObject;
 import ice.model.vertex.VertexData;
@@ -28,7 +29,9 @@ import static javax.microedition.khronos.opengles.GL11.*;
 public class MainScene extends Scene {
 
     public MainScene() {
-        App app = EngineContext.getInstance().getApp();
+
+        int appWidth = EngineContext.getAppWidth();
+        int appHeight = EngineContext.getAppHeight();
 
         Grid grid = new Grid(50, 50);
         grid.setPos(0, 0, -200);
@@ -44,7 +47,16 @@ public class MainScene extends Scene {
         alphaAnimation.setLoop(true);
         grid.startAnimation(alphaAnimation);
 
-        addChildren(grid, objMesh, testParticleSystem);
+
+        TextureGrid textureGrid = new TextureGrid(R.drawable.mask2);
+        textureGrid.setPos(appWidth / 2, appHeight / 2);
+        textureGrid.setCallFace(false);
+        RotateAnimation rotate = new RotateAnimation(3000, 0, 360);
+        rotate.setRotateVector(0.5f, 0.5f, 1);
+        rotate.setLoop(true);
+        textureGrid.startAnimation(rotate);
+
+        addChildren(grid, objMesh, textureGrid, testParticleSystem);
     }
 
     private TestParticleSystem particleTest() {
