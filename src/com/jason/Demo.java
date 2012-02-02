@@ -9,7 +9,7 @@ import ice.engine.GameView;
 import ice.engine.SceneProvider;
 
 public class Demo extends Game {
-    public static final float Z_NEAR = 1.0f, Z_FAR = 650;
+    public static final float Z_NEAR = 200, Z_FAR = 650;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,16 +38,6 @@ public class Demo extends Game {
     @Override
     public int getHeight() {
         return height;
-    }
-
-    @Override
-    public float getZNear() {
-        return Z_NEAR;
-    }
-
-    @Override
-    public float getZFar() {
-        return Z_FAR;
     }
 
     private int width, height;
