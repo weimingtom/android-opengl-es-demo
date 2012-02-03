@@ -42,8 +42,18 @@ public class MainScene extends Scene {
 
         TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
 
+        Button btn = buttonTest();
+
+        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn);
+    }
+
+    private Button buttonTest() {
         final Button btn = new Button(R.drawable.image2, R.drawable.mask2);
+
+        btn.enableBlend(GL_ONE, GL_ONE);
+
         btn.setPos(100, 256);
+
         btn.setOnTouchListener(new OnTouchListener() {
             private int lastX
                     ,
@@ -72,7 +82,7 @@ public class MainScene extends Scene {
             }
         });
 
-        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn);
+        return btn;
     }
 
     private Grid alphaAnimationTest() {
