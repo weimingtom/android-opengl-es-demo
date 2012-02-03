@@ -32,21 +32,32 @@ public class MainScene extends Scene {
         int appWidth = EngineContext.getAppWidth();
         int appHeight = EngineContext.getAppHeight();
 
+        Grid grid = alphaAnimationTest();
+
+        TestParticleSystem testParticleSystem = particleTest();
+
+        Drawable objMesh = objMeshTest();
+
+        TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
+
+        addChildren(grid, objMesh, textureGrid, testParticleSystem);
+    }
+
+    private Grid alphaAnimationTest() {
         Grid grid = new Grid(50, 50);
         grid.setPos(0, 0, -200);
         grid.setCallFace(false);
         grid.setTexture(new Texture(R.drawable.star));
         grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
 
-        Drawable objMesh = objMeshTest();
-
-        TestParticleSystem testParticleSystem = particleTest();
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(3000, 1, 0);
         alphaAnimation.setLoop(true);
         grid.startAnimation(alphaAnimation);
+        return grid;
+    }
 
-
+    private TextureGrid textureGridTest(int appWidth, int appHeight) {
         TextureGrid textureGrid = new TextureGrid(R.drawable.mask2);
         textureGrid.setPos((appWidth - textureGrid.getWidth()) / 2, (appHeight + textureGrid.getHeight()) / 2);
         textureGrid.setCallFace(false);
@@ -55,8 +66,7 @@ public class MainScene extends Scene {
         translateRotate.setCenterOffset(textureGrid.getWidth() / 2, -textureGrid.getHeight() / 2, 0);
         translateRotate.setLoop(true);
         textureGrid.startAnimation(translateRotate);
-
-        addChildren(grid, objMesh, textureGrid, testParticleSystem);
+        return textureGrid;
     }
 
     private TestParticleSystem particleTest() {
@@ -76,28 +86,6 @@ public class MainScene extends Scene {
         rotateAnimation.setInterpolator(new LinearInterpolator());
         testParticleSystem.startAnimation(rotateAnimation);
         return testParticleSystem;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-
-        float x = event.getX();
-        float y = event.getY();
-
-        if (action == MotionEvent.ACTION_DOWN) {
-            lastMotionY = y;
-            lastMotionX = x;
-        }
-        else if (action == MotionEvent.ACTION_MOVE) {
-            float deltaX = x - lastMotionX;
-            float deltaY = lastMotionY - y;
-
-            setPos(getPosX() + deltaX / 10, getPosY() + deltaY / 10, 0);
-        }
-
-
-        return true;
     }
 
     private Drawable objMeshTest() {
@@ -124,6 +112,28 @@ public class MainScene extends Scene {
         objMesh.setCallFace(false);
 
         return objMesh;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+
+        float x = event.getX();
+        float y = event.getY();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            lastMotionY = y;
+            lastMotionX = x;
+        }
+        else if (action == MotionEvent.ACTION_MOVE) {
+            float deltaX = x - lastMotionX;
+            float deltaY = lastMotionY - y;
+
+            setPos(getPosX() + deltaX / 10, getPosY() + deltaY / 10, 0);
+        }
+
+
+        return true;
     }
 
     private float lastMotionX, lastMotionY;
