@@ -1,5 +1,6 @@
 package com.jason.scenes;
 
+import android.view.MotionEvent;
 import com.jason.R;
 import ice.animation.AlphaAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
@@ -41,8 +42,36 @@ public class MainScene extends Scene {
 
         TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
 
-        Button btn = new Button(R.drawable.image2, R.drawable.mask2);
+        final Button btn = new Button(R.drawable.image2, R.drawable.mask2);
         btn.setPos(100, 256);
+        btn.setOnTouchListener(new OnTouchListener() {
+            private int lastX
+                    ,
+                    lastY;
+
+            @Override
+            public boolean onTouch(Drawable drawable, MotionEvent event) {
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+
+                if (!btn.hitTest(x, y))
+                    return false;
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = x;
+                        lastY = y;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        btn.setPos(btn.getPosX() + x - lastX, btn.getPosY() + y - lastY);
+                        lastX = x;
+                        lastY = y;
+                        return true;
+                }
+                return false;
+            }
+        });
+
         addChildren(grid, objMesh, textureGrid, testParticleSystem, btn);
     }
 
