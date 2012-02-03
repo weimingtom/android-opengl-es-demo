@@ -1,6 +1,5 @@
 package com.jason.scenes;
 
-import android.view.MotionEvent;
 import com.jason.R;
 import ice.animation.AlphaAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
@@ -8,17 +7,19 @@ import ice.animation.RotateAnimation;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
 import ice.graphic.Texture;
+import ice.model.vertex.VertexBufferObject;
+import ice.model.vertex.VertexData;
 import ice.node.Drawable;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
-import ice.node.widget.TextureGrid;
-import ice.util.ObjLoader;
-import ice.model.vertex.VertexBufferObject;
-import ice.model.vertex.VertexData;
 import ice.node.particle_system.TestParticleSystem;
+import ice.node.widget.Button;
+import ice.node.widget.TextureGrid;
 import ice.res.Res;
+import ice.util.ObjLoader;
 
-import static javax.microedition.khronos.opengles.GL11.*;
+import static javax.microedition.khronos.opengles.GL11.GL_ONE;
+import static javax.microedition.khronos.opengles.GL11.GL_SRC_ALPHA;
 
 /**
  * User: ice
@@ -40,7 +41,9 @@ public class MainScene extends Scene {
 
         TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
 
-        addChildren(grid, objMesh, textureGrid, testParticleSystem);
+        Button btn = new Button(R.drawable.image2, R.drawable.mask2);
+        btn.setPos(100, 256);
+        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn);
     }
 
     private Grid alphaAnimationTest() {
@@ -113,28 +116,4 @@ public class MainScene extends Scene {
 
         return objMesh;
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-
-        float x = event.getX();
-        float y = event.getY();
-
-        if (action == MotionEvent.ACTION_DOWN) {
-            lastMotionY = y;
-            lastMotionX = x;
-        }
-        else if (action == MotionEvent.ACTION_MOVE) {
-            float deltaX = x - lastMotionX;
-            float deltaY = lastMotionY - y;
-
-            setPos(getPosX() + deltaX / 10, getPosY() + deltaY / 10, 0);
-        }
-
-
-        return true;
-    }
-
-    private float lastMotionX, lastMotionY;
 }
