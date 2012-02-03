@@ -1,6 +1,5 @@
 package com.jason.scenes;
 
-import android.view.MotionEvent;
 import com.jason.R;
 import ice.animation.AlphaAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
@@ -16,6 +15,7 @@ import ice.node.mesh.Mesh;
 import ice.node.particle_system.TestParticleSystem;
 import ice.node.widget.Button;
 import ice.node.widget.TextureGrid;
+import ice.practical.GoAfterTouchListener;
 import ice.res.Res;
 import ice.util.ObjLoader;
 
@@ -36,9 +36,9 @@ public class MainScene extends Scene {
 
         Grid grid = alphaAnimationTest();
 
-        TestParticleSystem testParticleSystem = particleTest();
+        TestParticleSystem testParticleSystem = particleTest(appWidth, appHeight);
 
-        Drawable objMesh = objMeshTest();
+        Drawable objMesh = objMeshTest(appWidth, appHeight);
 
         TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
 
@@ -52,36 +52,14 @@ public class MainScene extends Scene {
 
         btn.enableBlend(GL_ONE, GL_ONE);
 
-        btn.setPos(100, 256);
+        btn.setPos(0, btn.getHeight());
 
-        btn.setOnTouchListener(new OnTouchListener() {
-            private int lastX
-                    ,
-                    lastY;
-
-            @Override
-            public boolean onTouch(Drawable drawable, MotionEvent event) {
-                int x = (int) event.getX();
-                int y = (int) event.getY();
-
-                if (!btn.hitTest(x, y))
-                    return false;
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = x;
-                        lastY = y;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        btn.setPos(btn.getPosX() + x - lastX, btn.getPosY() + y - lastY);
-                        lastX = x;
-                        lastY = y;
-                        return true;
-                }
-                return false;
-            }
-        });
-
+        RotateAnimation rotate = new RotateAnimation(2000, 0, 360);
+        rotate.setRotateVector(1, 0, 0);
+        rotate.setLoop(true);
+        rotate.setCenterOffset(btn.getWidth() / 2, -btn.getHeight() / 2, 0);
+        btn.startAnimation(rotate);
+        btn.setCallFace(false);
         return btn;
     }
 
@@ -100,18 +78,14 @@ public class MainScene extends Scene {
     }
 
     private TextureGrid textureGridTest(int appWidth, int appHeight) {
-        TextureGrid textureGrid = new TextureGrid(R.drawable.mask2);
-        textureGrid.setPos((appWidth - textureGrid.getWidth()) / 2, (appHeight + textureGrid.getHeight()) / 2);
-        textureGrid.setCallFace(false);
-
-        RotateAnimation translateRotate = new RotateAnimation(3000, 0, 360);
-        translateRotate.setCenterOffset(textureGrid.getWidth() / 2, -textureGrid.getHeight() / 2, 0);
-        translateRotate.setLoop(true);
-        textureGrid.startAnimation(translateRotate);
+        TextureGrid textureGrid = new TextureGrid(R.drawable.image2);
+        textureGrid.setPos(0, textureGrid.getHeight());
+        textureGrid.enableBlend(GL_ONE, GL_ONE);
+        textureGrid.setOnTouchListener(new GoAfterTouchListener());
         return textureGrid;
     }
 
-    private TestParticleSystem particleTest() {
+    private TestParticleSystem particleTest(int appWidth, int appHeight) {
 
         TestParticleSystem testParticleSystem = new TestParticleSystem(
                 50,
@@ -120,7 +94,7 @@ public class MainScene extends Scene {
 
         testParticleSystem.enableBlend(GL_ONE, GL_ONE);
 
-        testParticleSystem.setPos(300, 400, -200);
+        testParticleSystem.setPos(appWidth / 2, appHeight / 2, -200);
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);
@@ -130,7 +104,7 @@ public class MainScene extends Scene {
         return testParticleSystem;
     }
 
-    private Drawable objMeshTest() {
+    private Drawable objMeshTest(int appWidth, int appHeight) {
         ObjLoader objLoader = new ObjLoader();
         objLoader.loadObj(Res.openAssets("teaport.obj"));
 
@@ -139,7 +113,7 @@ public class MainScene extends Scene {
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(600, 400, -300);
+        objMesh.setPos(0.85f * appWidth, appHeight / 2, -300);
 
         objMesh.setCallFace(false);
 
