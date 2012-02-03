@@ -3,7 +3,7 @@ package com.jason;
 import android.os.Bundle;
 import android.view.Display;
 import com.jason.graphic.DemoView;
-import com.jason.sceneProviders.Main;
+import com.jason.scene_providers.Main;
 import ice.engine.Game;
 import ice.engine.GameView;
 import ice.engine.SceneProvider;

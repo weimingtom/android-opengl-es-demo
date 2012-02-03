@@ -1,4 +1,4 @@
-package com.jason.sceneProviders;
+package com.jason.scene_providers;
 
 import com.jason.scenes.MainScene;
 import ice.engine.Scene;
