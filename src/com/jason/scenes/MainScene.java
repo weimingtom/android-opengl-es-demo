@@ -15,6 +15,7 @@ import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
 import ice.node.particle_system.TestParticleSystem;
 import ice.node.widget.Button;
+import ice.node.widget.ComesMoreText;
 import ice.node.widget.TextGrid;
 import ice.node.widget.TextureGrid;
 import ice.practical.GoAfterTouchListener;
@@ -46,8 +47,8 @@ public class MainScene extends Scene {
 
         Button btn = buttonTest();
 
-        TextGrid textGrid = new TextGrid(200, 100);
-        textGrid.setText("Hello Demo !", Color.RED, 20, true);
+        TextGrid textGrid = new ComesMoreText(200, 100, 1000);
+        textGrid.setText("Hello Demo !", Color.RED, 20);
         textGrid.setPos(0, getHeight());
 
         addChildren(grid, objMesh, textureGrid, testParticleSystem, btn, textGrid);
