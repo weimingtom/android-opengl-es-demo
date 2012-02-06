@@ -1,5 +1,6 @@
 package com.jason.scenes;
 
+import android.graphics.Color;
 import com.jason.R;
 import ice.animation.AlphaAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
@@ -14,6 +15,7 @@ import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
 import ice.node.particle_system.TestParticleSystem;
 import ice.node.widget.Button;
+import ice.node.widget.TextGrid;
 import ice.node.widget.TextureGrid;
 import ice.practical.GoAfterTouchListener;
 import ice.res.Res;
@@ -44,7 +46,11 @@ public class MainScene extends Scene {
 
         Button btn = buttonTest();
 
-        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn);
+        TextGrid textGrid = new TextGrid(200, 100);
+        textGrid.setText("Hello Demo !", Color.RED, 20, true);
+        textGrid.setPos(0, getHeight());
+
+        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn, textGrid);
     }
 
     private Button buttonTest() {
