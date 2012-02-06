@@ -18,10 +18,12 @@ import ice.node.widget.Button;
 import ice.node.widget.ComesMoreText;
 import ice.node.widget.TextGrid;
 import ice.node.widget.TextureGrid;
+import ice.practical.ComesMoreTextBox;
 import ice.practical.GoAfterTouchListener;
 import ice.res.Res;
 import ice.util.ObjLoader;
 
+import static javax.microedition.khronos.opengles.GL10.GL_ZERO;
 import static javax.microedition.khronos.opengles.GL11.GL_ONE;
 import static javax.microedition.khronos.opengles.GL11.GL_SRC_ALPHA;
 
@@ -47,11 +49,16 @@ public class MainScene extends Scene {
 
         Button btn = buttonTest();
 
-        TextGrid textGrid = new ComesMoreText(200, 100, 1000);
+        TextGrid textGrid = new ComesMoreText(200, 20, 1000);
         textGrid.setText("Hello Demo !", Color.RED, 20);
-        textGrid.setPos(0, getHeight());
+        textGrid.setPos(300, getHeight());
 
-        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn, textGrid);
+        ComesMoreTextBox comesMoreTextBox = new ComesMoreTextBox(500, 30, 1000);
+        comesMoreTextBox.setTexts(new String[]{"ajkfjdsakfjaskfjka", "你好，呵呵"});
+        comesMoreTextBox.setPos(getWidth() / 2, getHeight() - 20);
+        comesMoreTextBox.enableBlend(GL_ONE, GL_ZERO);
+
+        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn, textGrid, comesMoreTextBox);
     }
 
     private Button buttonTest() {
