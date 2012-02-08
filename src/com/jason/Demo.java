@@ -9,7 +9,7 @@ import ice.engine.GameView;
 import ice.engine.SceneProvider;
 
 public class Demo extends Game {
-    public static final float Z_NEAR = 0.1f, Z_FAR = 650;
+    public static final float Z_NEAR = 0.1f, Z_FAR = 1000;
 
     //Z_NEAR = 0.01f居然会出问题而0.1f不会？
 
