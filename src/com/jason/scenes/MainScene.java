@@ -58,7 +58,7 @@ public class MainScene extends Scene {
         comesMoreTextBox.setPos(getWidth() / 2, getHeight() - 20);
         comesMoreTextBox.enableBlend(GL_ONE, GL_ZERO);
 
-        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn);
+        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn, textGrid, comesMoreTextBox);
     }
 
     private Button buttonTest() {
