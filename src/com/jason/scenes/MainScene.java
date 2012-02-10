@@ -79,7 +79,7 @@ public class MainScene extends Scene {
 
     private Grid alphaAnimationTest() {
         Grid grid = new Grid(50, 50);
-        grid.setPos(0, 0, -200);
+        grid.setPos(0, 0, -50);
         grid.setCallFace(false);
         grid.setTexture(new Texture(R.drawable.star));
         grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
@@ -108,7 +108,7 @@ public class MainScene extends Scene {
 
         testParticleSystem.enableBlend(GL_ONE, GL_ONE);
 
-        testParticleSystem.setPos(appWidth / 2, appHeight / 2, -200);
+        testParticleSystem.setPos(appWidth / 2, appHeight / 2, -100);
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);
@@ -127,7 +127,7 @@ public class MainScene extends Scene {
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(0.85f * appWidth, appHeight / 2, -300);
+        objMesh.setPos(0.85f * appWidth, appHeight / 2, -80);
 
         objMesh.setCallFace(false);
 

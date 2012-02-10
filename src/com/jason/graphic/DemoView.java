@@ -2,7 +2,6 @@ package com.jason.graphic;
 
 import android.content.Context;
 import android.opengl.GLU;
-import com.jason.Demo;
 import ice.engine.EngineContext;
 import ice.engine.GameView;
 import ice.engine.GlRenderer;
@@ -25,12 +24,7 @@ public class DemoView extends GameView {
 
     private static GlRenderer createRender() {
 
-        PerspectiveProjection projection = new PerspectiveProjection(
-                new GLU(),
-                60,
-                Demo.Z_NEAR,
-                Demo.Z_FAR
-        );
+        PerspectiveProjection projection = new PerspectiveProjection(new GLU(), 60);
 
         return new GlRenderer(projection) {
 
