@@ -131,7 +131,9 @@ public class MainScene extends Scene {
 
         objMesh.setCallFace(false);
 
-        objMesh.bindTexture(new Texture(R.drawable.mask1));
+        Texture texture = new Texture(R.drawable.mask1);
+        texture.setParams(Texture.Params.LINEAR_REPEAT);
+        objMesh.bindTexture(texture);
 
         RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
         rotateAnimation.setRotateVector(1, 1, 1);
