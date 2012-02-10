@@ -3,6 +3,7 @@ package com.jason.scenes;
 import android.graphics.Color;
 import com.jason.R;
 import ice.animation.AlphaAnimation;
+import ice.animation.ColorAnimation;
 import ice.animation.Interpolator.LinearInterpolator;
 import ice.animation.RotateAnimation;
 import ice.engine.EngineContext;
@@ -66,7 +67,7 @@ public class MainScene extends Scene {
 
         btn.enableBlend(GL_ONE, GL_ONE);
 
-        btn.setPos(0, btn.getHeight());
+        btn.setPos(0, btn.getHeight() + 50);
 
         RotateAnimation rotate = new RotateAnimation(2000, 0, 360);
         rotate.setRotateVector(1, 0, 0);
@@ -79,21 +80,21 @@ public class MainScene extends Scene {
 
     private Grid alphaAnimationTest() {
         Grid grid = new Grid(50, 50);
-        grid.setPos(0, 0, -50);
+        grid.setPos(0, 50, -50);
         grid.setCallFace(false);
         grid.setTexture(new Texture(R.drawable.star));
         grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
 
 
-        AlphaAnimation alphaAnimation = new AlphaAnimation(3000, 1, 0);
-        alphaAnimation.setLoop(true);
-        grid.startAnimation(alphaAnimation);
+        ColorAnimation colorAnimation = new AlphaAnimation(3000, 1, 0);
+        colorAnimation.setLoop(true);
+        grid.startAnimation(colorAnimation);
         return grid;
     }
 
     private TextureGrid textureGridTest(int appWidth, int appHeight) {
         TextureGrid textureGrid = new TextureGrid(R.drawable.image2);
-        textureGrid.setPos(0, textureGrid.getHeight());
+        textureGrid.setPos(0, textureGrid.getHeight() + 50);
         textureGrid.enableBlend(GL_ONE, GL_ONE);
         textureGrid.setOnTouchListener(new GoAfterTouchListener());
         return textureGrid;
@@ -127,7 +128,7 @@ public class MainScene extends Scene {
 
         Mesh objMesh = new Mesh(vertexData);
 
-        objMesh.setPos(0.85f * appWidth, appHeight / 2, -80);
+        objMesh.setPos(0.85f * appWidth, appHeight / 2, 0);
 
         objMesh.setCallFace(false);
 
