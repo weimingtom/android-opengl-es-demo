@@ -136,10 +136,11 @@ public class MainScene extends Scene {
         texture.setParams(Texture.Params.LINEAR_REPEAT);
         objMesh.bindTexture(texture);
 
-        RotateAnimation rotateAnimation = new RotateAnimation(10000, 0, 360);
+        RotateAnimation rotateAnimation = new RotateAnimation(1000, 0, 180);
         rotateAnimation.setRotateVector(1, 1, 1);
-        rotateAnimation.setLoop(true);
-        rotateAnimation.setInterpolator(new LinearInterpolator());
+        // rotateAnimation.setLoop(true);
+       // rotateAnimation.setInterpolator(new LinearInterpolator());
+        rotateAnimation.setFillAfter(true);
 
         objMesh.startAnimation(rotateAnimation);
         objMesh.setCallFace(false);
