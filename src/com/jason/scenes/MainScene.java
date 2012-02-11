@@ -2,10 +2,8 @@ package com.jason.scenes;
 
 import android.graphics.Color;
 import com.jason.R;
-import ice.animation.AlphaAnimation;
-import ice.animation.ColorAnimation;
+import ice.animation.*;
 import ice.animation.Interpolator.LinearInterpolator;
-import ice.animation.RotateAnimation;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
 import ice.graphic.Texture;
@@ -127,6 +125,7 @@ public class MainScene extends Scene {
         vertexData.setVertices(objLoader.getVertexData());
 
         Mesh objMesh = new Mesh(vertexData);
+        objMesh.setCallFace(false);
 
         objMesh.setPos(0.85f * appWidth, appHeight / 2, 0);
 
@@ -136,14 +135,15 @@ public class MainScene extends Scene {
         texture.setParams(Texture.Params.LINEAR_REPEAT);
         objMesh.bindTexture(texture);
 
+        TranslateAnimation translateAnimation = TranslateAnimation.createMoveBy(1000, -200, -50);
+
+        ScaleAnimation scaleAnimation = ScaleAnimation.createScaleTo(3000, 2, 2);
+
         RotateAnimation rotateAnimation = new RotateAnimation(1000, 0, 180);
         rotateAnimation.setRotateVector(1, 1, 1);
-        // rotateAnimation.setLoop(true);
-       // rotateAnimation.setInterpolator(new LinearInterpolator());
         rotateAnimation.setFillAfter(true);
 
-        objMesh.startAnimation(rotateAnimation);
-        objMesh.setCallFace(false);
+        objMesh.startAnimation(scaleAnimation);
 
         return objMesh;
     }
