@@ -4,7 +4,7 @@ import android.content.Context;
 import android.opengl.GLU;
 import ice.engine.EngineContext;
 import ice.engine.GameView;
-import ice.engine.GlRenderer;
+import ice.graphic.GlRenderer;
 import ice.graphic.projection.PerspectiveProjection;
 
 import javax.microedition.khronos.opengles.GL11;
