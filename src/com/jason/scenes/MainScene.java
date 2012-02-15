@@ -9,7 +9,7 @@ import ice.engine.Scene;
 import ice.graphic.Texture;
 import ice.model.vertex.VertexBufferObject;
 import ice.model.vertex.VertexData;
-import ice.node.Drawable;
+import ice.node.Overlay;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
 import ice.node.particle_system.TestParticleSystem;
@@ -42,7 +42,7 @@ public class MainScene extends Scene {
 
         TestParticleSystem testParticleSystem = particleTest(appWidth, appHeight);
 
-        Drawable objMesh = objMeshTest(appWidth, appHeight);
+        Overlay objMesh = objMeshTest(appWidth, appHeight);
 
         TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
 
@@ -117,7 +117,7 @@ public class MainScene extends Scene {
         return testParticleSystem;
     }
 
-    private Drawable objMeshTest(int appWidth, int appHeight) {
+    private Overlay objMeshTest(int appWidth, int appHeight) {
         ObjLoader objLoader = new ObjLoader();
         objLoader.loadObj(Res.openAssets("teaport.obj"));
 
