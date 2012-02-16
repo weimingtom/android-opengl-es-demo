@@ -11,6 +11,7 @@ import ice.graphic.texture.Texture;
 import ice.model.vertex.VertexBufferObject;
 import ice.model.vertex.VertexData;
 import ice.node.Overlay;
+import ice.node.OverlayParent;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
 import ice.node.widget.BitmapOverlay;
@@ -47,36 +48,45 @@ public class MainScene extends Scene {
 
         BitmapOverlay bitmapOverlay = textureGridTest(appWidth, appHeight);
 
-        ButtonOverlay btn = buttonTest();
+        buttonTest();
 
         TextOverlay textOverlay = new ComesMoreText(200, 30, 1000);
         textOverlay.setText("Hello Demo !", Color.RED, 30);
-        textOverlay.setPos(300, getHeight());
+        textOverlay.setPos(300, appHeight - textOverlay.getHeight());
         FlowLighting modifier = new FlowLighting(3000);
         textOverlay.getTexture().setModifier(modifier);
 
         ComesMoreTextBox comesMoreTextBox = new ComesMoreTextBox(500, 30, 1000);
         comesMoreTextBox.setTexts(new String[]{"ajkfjdsakfjaskfjka", "你好，呵呵"});
-        comesMoreTextBox.setPos(getWidth() / 2, getHeight() - 20);
+        comesMoreTextBox.setPos(appWidth / 2, appHeight - 50);
         comesMoreTextBox.enableBlend(GL_ONE, GL_ZERO);
 
-        addChildren(grid, objMesh, bitmapOverlay, testParticleSystem, btn, textOverlay, comesMoreTextBox);
+        addChildren(grid, objMesh, bitmapOverlay, testParticleSystem, textOverlay, comesMoreTextBox);
     }
 
-    private ButtonOverlay buttonTest() {
+    private void buttonTest() {
         final ButtonOverlay btn = new ButtonOverlay(R.drawable.image2, R.drawable.mask2);
 
         btn.enableBlend(GL_ONE, GL_ONE);
 
-        btn.setPos(0, btn.getHeight() + 50);
+        //btn.setPos(0, btn.getHeight() + 50);
 
         RotateAnimation rotate = new RotateAnimation(2000, 0, 360);
         rotate.setRotateVector(1, 0, 0);
         rotate.setLoop(true);
-        rotate.setCenterOffset(btn.getWidth() / 2, -btn.getHeight() / 2, 0);
+        rotate.setCenterOffset(btn.getWidth() / 2, btn.getHeight() / 2, 0);
         btn.startAnimation(rotate);
         btn.setCallFace(false);
-        return btn;
+
+
+        OverlayParent overlayParent = new OverlayParent();
+
+        overlayParent.addChild(btn);
+
+        overlayParent.setPos(0, btn.getHeight());
+
+        addChild(overlayParent);
+
     }
 
     private Grid alphaAnimationTest() {
@@ -95,7 +105,7 @@ public class MainScene extends Scene {
 
     private BitmapOverlay textureGridTest(int appWidth, int appHeight) {
         BitmapOverlay bitmapOverlay = new BitmapOverlay(R.drawable.image2);
-        bitmapOverlay.setPos(0, bitmapOverlay.getHeight() + 50);
+        bitmapOverlay.setPos(0, (EngineContext.getAppHeight() - bitmapOverlay.getHeight()) / 2);
         bitmapOverlay.enableBlend(GL_ONE, GL_ONE);
         bitmapOverlay.setOnTouchListener(new GoAfterTouchListener());
 
