@@ -6,19 +6,20 @@ import ice.animation.*;
 import ice.animation.Interpolator.LinearInterpolator;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
-import ice.graphic.Texture;
+import ice.graphic.texture.FlowLighting;
+import ice.graphic.texture.Texture;
 import ice.model.vertex.VertexBufferObject;
 import ice.model.vertex.VertexData;
 import ice.node.Overlay;
 import ice.node.mesh.Grid;
 import ice.node.mesh.Mesh;
-import ice.node.particle_system.TestParticleSystem;
-import ice.node.widget.Button;
-import ice.node.widget.ComesMoreText;
-import ice.node.widget.TextGrid;
-import ice.node.widget.TextureGrid;
+import ice.node.widget.BitmapOverlay;
+import ice.node.widget.ButtonOverlay;
+import ice.node.widget.TextOverlay;
+import ice.practical.ComesMoreText;
 import ice.practical.ComesMoreTextBox;
 import ice.practical.GoAfterTouchListener;
+import ice.practical.TestParticleSystem;
 import ice.res.Res;
 import ice.util.ObjLoader;
 
@@ -44,24 +45,26 @@ public class MainScene extends Scene {
 
         Overlay objMesh = objMeshTest(appWidth, appHeight);
 
-        TextureGrid textureGrid = textureGridTest(appWidth, appHeight);
+        BitmapOverlay bitmapOverlay = textureGridTest(appWidth, appHeight);
 
-        Button btn = buttonTest();
+        ButtonOverlay btn = buttonTest();
 
-        TextGrid textGrid = new ComesMoreText(200, 20, 1000);
-        textGrid.setText("Hello Demo !", Color.RED, 20);
-        textGrid.setPos(300, getHeight());
+        TextOverlay textOverlay = new ComesMoreText(200, 30, 1000);
+        textOverlay.setText("Hello Demo !", Color.RED, 30);
+        textOverlay.setPos(300, getHeight());
+        FlowLighting modifier = new FlowLighting(3000);
+        textOverlay.getTexture().setModifier(modifier);
 
         ComesMoreTextBox comesMoreTextBox = new ComesMoreTextBox(500, 30, 1000);
         comesMoreTextBox.setTexts(new String[]{"ajkfjdsakfjaskfjka", "你好，呵呵"});
         comesMoreTextBox.setPos(getWidth() / 2, getHeight() - 20);
         comesMoreTextBox.enableBlend(GL_ONE, GL_ZERO);
 
-        addChildren(grid, objMesh, textureGrid, testParticleSystem, btn, textGrid, comesMoreTextBox);
+        addChildren(grid, objMesh, bitmapOverlay, testParticleSystem, btn, textOverlay, comesMoreTextBox);
     }
 
-    private Button buttonTest() {
-        final Button btn = new Button(R.drawable.image2, R.drawable.mask2);
+    private ButtonOverlay buttonTest() {
+        final ButtonOverlay btn = new ButtonOverlay(R.drawable.image2, R.drawable.mask2);
 
         btn.enableBlend(GL_ONE, GL_ONE);
 
@@ -90,12 +93,13 @@ public class MainScene extends Scene {
         return grid;
     }
 
-    private TextureGrid textureGridTest(int appWidth, int appHeight) {
-        TextureGrid textureGrid = new TextureGrid(R.drawable.image2);
-        textureGrid.setPos(0, textureGrid.getHeight() + 50);
-        textureGrid.enableBlend(GL_ONE, GL_ONE);
-        textureGrid.setOnTouchListener(new GoAfterTouchListener());
-        return textureGrid;
+    private BitmapOverlay textureGridTest(int appWidth, int appHeight) {
+        BitmapOverlay bitmapOverlay = new BitmapOverlay(R.drawable.image2);
+        bitmapOverlay.setPos(0, bitmapOverlay.getHeight() + 50);
+        bitmapOverlay.enableBlend(GL_ONE, GL_ONE);
+        bitmapOverlay.setOnTouchListener(new GoAfterTouchListener());
+
+        return bitmapOverlay;
     }
 
     private TestParticleSystem particleTest(int appWidth, int appHeight) {
