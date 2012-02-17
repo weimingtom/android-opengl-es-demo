@@ -150,12 +150,16 @@ public class MainScene extends Scene {
 
         TranslateAnimation translateAnimation = new TranslateAnimation(1000, -200, -50);
 
-        ScaleAnimation scaleAnimation = new ScaleAnimation(3000, 2, 2);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1000, 2, 2);
 
         RotateAnimation rotateAnimation = new RotateAnimation(1000, 0, 180);
         rotateAnimation.setRotateVector(1, 1, 1);
 
-        objMesh.startAnimation(scaleAnimation);
+        AnimationGroup group = new AnimationGroup();
+        group.add(translateAnimation);
+        group.add(scaleAnimation);
+
+        objMesh.startAnimation(group);
 
         return objMesh;
     }
