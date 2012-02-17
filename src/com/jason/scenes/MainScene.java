@@ -148,13 +148,12 @@ public class MainScene extends Scene {
         texture.setParams(Texture.Params.LINEAR_REPEAT);
         objMesh.bindTexture(texture);
 
-        TranslateAnimation translateAnimation = TranslateAnimation.createMoveBy(1000, -200, -50);
+        TranslateAnimation translateAnimation = new TranslateAnimation(1000, -200, -50);
 
-        ScaleAnimation scaleAnimation = ScaleAnimation.createScaleTo(3000, 2, 2);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(3000, 2, 2);
 
         RotateAnimation rotateAnimation = new RotateAnimation(1000, 0, 180);
         rotateAnimation.setRotateVector(1, 1, 1);
-        rotateAnimation.setFillAfter(true);
 
         objMesh.startAnimation(scaleAnimation);
 
