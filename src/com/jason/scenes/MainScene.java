@@ -75,7 +75,7 @@ public class MainScene extends Scene {
         rotate.setRotateVector(1, 0, 0);
         rotate.setLoop(true);
         btn.startAnimation(rotate);
-        btn.setCallFace(false);
+        btn.enableFaceModeSwitch(Mesh.FaceMode.BothSide);
 
 
         OverlayParent overlayParent = new OverlayParent();
@@ -91,7 +91,7 @@ public class MainScene extends Scene {
     private Grid alphaAnimationTest() {
         Grid grid = new Grid(50, 50);
         grid.setPos(25, 50, -50);
-        grid.setCallFace(false);
+        grid.enableFaceModeSwitch(Mesh.FaceMode.BothSide);
         grid.setTexture(new Texture(R.drawable.star));
         grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
 
@@ -138,11 +138,10 @@ public class MainScene extends Scene {
         vertexData.setVertices(objLoader.getVertexData());
 
         Mesh objMesh = new Mesh(vertexData);
-        objMesh.setCallFace(false);
 
         objMesh.setPos(0.85f * appWidth, appHeight / 2, 0);
 
-        objMesh.setCallFace(false);
+        objMesh.enableFaceModeSwitch(Mesh.FaceMode.BothSide);
 
         Texture texture = new Texture(R.drawable.mask1);
         texture.setParams(Texture.Params.LINEAR_REPEAT);
