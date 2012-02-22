@@ -6,6 +6,8 @@ import ice.animation.*;
 import ice.animation.Interpolator.LinearInterpolator;
 import ice.engine.EngineContext;
 import ice.engine.Scene;
+import ice.graphic.gl_status.BlendController;
+import ice.graphic.gl_status.CullFaceController;
 import ice.graphic.texture.FlowLighting;
 import ice.graphic.texture.Texture;
 import ice.model.vertex.VertexBufferObject;
@@ -59,7 +61,9 @@ public class MainScene extends Scene {
         ComesMoreTextBox comesMoreTextBox = new ComesMoreTextBox(500, 30, 1000);
         comesMoreTextBox.setTexts(new String[]{"ajkfjdsakfjaskfjka", "你好，呵呵"});
         comesMoreTextBox.setPos(appWidth / 2, appHeight - 60);
-        comesMoreTextBox.enableBlend(GL_ONE, GL_ZERO);
+        comesMoreTextBox.addGlStatusController(
+                new BlendController(GL_ONE, GL_ZERO)
+        );
 
         addChildren(grid, objMesh, bitmapOverlay, testParticleSystem, textOverlay, comesMoreTextBox);
     }
@@ -67,16 +71,13 @@ public class MainScene extends Scene {
     private void buttonTest() {
         final ButtonOverlay btn = new ButtonOverlay(R.drawable.image2, R.drawable.mask2);
 
-        btn.enableBlend(GL_ONE, GL_ONE);
-
         //btn.setPos(0, btn.getHeight() + 50);
 
         RotateAnimation rotate = new RotateAnimation(2000, 0, 360);
         rotate.setRotateVector(1, 0, 0);
         rotate.setLoop(true);
         btn.startAnimation(rotate);
-        btn.enableFaceModeSwitch(Mesh.FaceMode.BothSide);
-
+        btn.setFaceMode(CullFaceController.FaceMode.BothSide);
 
         OverlayParent overlayParent = new OverlayParent();
 
@@ -91,10 +92,9 @@ public class MainScene extends Scene {
     private Grid alphaAnimationTest() {
         Grid grid = new Grid(50, 50);
         grid.setPos(25, 50, -50);
-        grid.enableFaceModeSwitch(Mesh.FaceMode.BothSide);
+        grid.setFaceMode(CullFaceController.FaceMode.BothSide);
         grid.setTexture(new Texture(R.drawable.star));
-        grid.enableBlend(GL_SRC_ALPHA, GL_ONE);
-
+        grid.addGlStatusController(new BlendController(GL_SRC_ALPHA, GL_ONE));
 
         ColorAnimation colorAnimation = new AlphaAnimation(3000, 1, 0);
         colorAnimation.setLoop(true);
@@ -105,7 +105,7 @@ public class MainScene extends Scene {
     private BitmapOverlay textureGridTest(int appWidth, int appHeight) {
         BitmapOverlay bitmapOverlay = new BitmapOverlay(R.drawable.image2);
         bitmapOverlay.setPos(bitmapOverlay.getWidth() / 2, (EngineContext.getAppHeight() - bitmapOverlay.getHeight()) / 2);
-        bitmapOverlay.enableBlend(GL_ONE, GL_ONE);
+        bitmapOverlay.addGlStatusController(new BlendController(GL_ONE, GL_ONE));
         bitmapOverlay.setOnTouchListener(new GoAfterTouchListener());
 
         return bitmapOverlay;
@@ -118,7 +118,7 @@ public class MainScene extends Scene {
                 new Texture(R.drawable.spark)
         );
 
-        testParticleSystem.enableBlend(GL_ONE, GL_ONE);
+        testParticleSystem.addGlStatusController(new BlendController(GL_ONE, GL_ONE));
 
         testParticleSystem.setPos(appWidth / 2, appHeight / 2, -100);
 
@@ -141,7 +141,7 @@ public class MainScene extends Scene {
 
         objMesh.setPos(0.85f * appWidth, appHeight / 2, 0);
 
-        objMesh.enableFaceModeSwitch(Mesh.FaceMode.BothSide);
+        objMesh.setFaceMode(CullFaceController.FaceMode.BothSide);
 
         Texture texture = new Texture(R.drawable.mask1);
         texture.setParams(Texture.Params.LINEAR_REPEAT);
