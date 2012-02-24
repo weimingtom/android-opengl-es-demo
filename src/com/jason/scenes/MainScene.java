@@ -1,6 +1,5 @@
 package com.jason.scenes;
 
-import android.graphics.Color;
 import com.jason.R;
 import ice.animation.*;
 import ice.animation.Interpolator.LinearInterpolator;
@@ -11,14 +10,9 @@ import ice.graphic.gl_status.CullFaceController;
 import ice.graphic.texture.FlowLighting;
 import ice.graphic.texture.Texture;
 import ice.model.vertex.VertexBufferObject;
-import ice.model.vertex.VertexData;
 import ice.node.Overlay;
 import ice.node.OverlayParent;
-import ice.node.mesh.Grid;
-import ice.node.mesh.Mesh;
-import ice.node.widget.BitmapOverlay;
-import ice.node.widget.ButtonOverlay;
-import ice.node.widget.TextOverlay;
+import ice.node.widget.*;
 import ice.practical.ComesMoreText;
 import ice.practical.ComesMoreTextBox;
 import ice.practical.GoAfterTouchListener;
@@ -53,7 +47,7 @@ public class MainScene extends Scene {
         buttonTest();
 
         TextOverlay textOverlay = new ComesMoreText(200, 30, 1000);
-        textOverlay.setText("Hello Demo !", Color.RED, 30);
+        textOverlay.setText("Hello Demo !", 30);
         textOverlay.setPos(300, appHeight - textOverlay.getHeight());
         FlowLighting modifier = new FlowLighting(3000);
         textOverlay.getTexture().setModifier(modifier);
@@ -134,7 +128,7 @@ public class MainScene extends Scene {
         ObjLoader objLoader = new ObjLoader();
         objLoader.loadObj(Res.openAssets("teaport.obj"));
 
-        VertexData vertexData = new VertexBufferObject(objLoader.getVertexNum(), objLoader.getAttributes());
+        VertexBufferObject vertexData = new VertexBufferObject(objLoader.getVertexNum(), objLoader.getAttributes());
         vertexData.setVertices(objLoader.getVertexData());
 
         Mesh objMesh = new Mesh(vertexData);
@@ -145,7 +139,7 @@ public class MainScene extends Scene {
 
         Texture texture = new Texture(R.drawable.mask1);
         texture.setParams(Texture.Params.LINEAR_REPEAT);
-        objMesh.bindTexture(texture);
+        objMesh.setTexture(texture);
 
         TranslateAnimation translateAnimation = new TranslateAnimation(1000, -200, -50);
 
