@@ -23,6 +23,7 @@ import ice.util.ObjLoader;
 import static javax.microedition.khronos.opengles.GL10.GL_ZERO;
 import static javax.microedition.khronos.opengles.GL11.GL_ONE;
 import static javax.microedition.khronos.opengles.GL11.GL_SRC_ALPHA;
+import static ice.graphic.gl_status.CullFaceController.FaceMode.*;
 
 /**
  * User: ice
@@ -71,7 +72,7 @@ public class MainScene extends Scene {
         rotate.setRotateVector(1, 0, 0);
         rotate.setLoop(true);
         btn.startAnimation(rotate);
-        btn.setFaceMode(CullFaceController.FaceMode.BothSide);
+        btn.addGlStatusController(new CullFaceController(BothSide));
 
         OverlayParent overlayParent = new OverlayParent();
 
@@ -86,7 +87,7 @@ public class MainScene extends Scene {
     private Grid alphaAnimationTest() {
         Grid grid = new Grid(50, 50);
         grid.setPos(25, 50, -50);
-        grid.setFaceMode(CullFaceController.FaceMode.BothSide);
+        grid.addGlStatusController(new CullFaceController(BothSide));
         grid.setTexture(new Texture(R.drawable.star));
         grid.addGlStatusController(new BlendController(GL_SRC_ALPHA, GL_ONE));
 
@@ -98,7 +99,7 @@ public class MainScene extends Scene {
 
     private BitmapOverlay textureGridTest(int appWidth, int appHeight) {
         BitmapOverlay bitmapOverlay = new BitmapOverlay(R.drawable.image2);
-        bitmapOverlay.setPos(bitmapOverlay.getWidth() / 2, (EngineContext.getAppHeight() - bitmapOverlay.getHeight()) / 2);
+        bitmapOverlay.setPos(bitmapOverlay.getWidth() / 2, EngineContext.getAppHeight() / 2);
         bitmapOverlay.addGlStatusController(new BlendController(GL_ONE, GL_ONE));
         bitmapOverlay.setOnTouchListener(new GoAfterTouchListener());
 
@@ -135,7 +136,7 @@ public class MainScene extends Scene {
 
         objMesh.setPos(0.85f * appWidth, appHeight / 2, 0);
 
-        objMesh.setFaceMode(CullFaceController.FaceMode.BothSide);
+        objMesh.addGlStatusController(new CullFaceController(BothSide));
 
         Texture texture = new Texture(R.drawable.mask1);
         texture.setParams(Texture.Params.LINEAR_REPEAT);
